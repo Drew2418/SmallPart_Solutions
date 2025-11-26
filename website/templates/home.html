@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Developer Template</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #222;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: white;
+        }
+
+
+
+        /* Full-width top image */
+        .hero {
+            width: 100%;
+            height: 400px;
+            background-image: url('{{ url_for("static", filename="images/image5.jpg") }}');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        /* Logo text overlay */
+        .hero-logo {
+            position: absolute;
+            top: 50%;              /* Center vertically */
+            left: 50%;             /* Center horizontally */
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            letter-spacing: 2px;
+            white-space: nowrap;
+        }
+
+        .hero-logo span {
+            color: #FFD700; /* Gold accent for “Solutions” */
+        }
+
+        /* Navigation overlay at bottom of image */
+        .nav-overlay {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+
+        .nav-overlay a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav-overlay a:hover {
+            color: #FFD700; /* Gold on hover */
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        /* Container for photo + text */
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1000px;
+            margin: auto;
+            flex-wrap: wrap; /* Makes it responsive */
+        }
+
+        /* Circular image styling */
+        .about-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #FFD700; /* Optional: Gold outline */
+        }
+
+        /* Text formatting */
+        .about-text {
+            max-width: 600px;
+        }
+
+        .about-text h2 {
+            text-align: left;
+            color: white;
+            font-size: 24px;
+        }
+
+        .about-text p {
+            color: white;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .location {
+            font-size: 36px;
+            margin-top: 10px;
+            color: #FFD700; /* Gold accent */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .location i {
+            font-size: 26px;
+        }
+        .location:hover {
+            color: white;
+            cursor: default;
+        }
+
+
+        section h2 {
+            color: white;
+        }
+
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        #about h2,
+        #about .section-content {
+            color: white;
+        }
+
+        /* Optional: section separator */
+        .section-separator {
+            height: 2px;
+            background-color: #333;
+            margin: 40px 0;
+        }
+
+        .hero-logo {
+            white-space: nowrap;
+            max-width: 90%;
+            text-align: center;
+        }
+        /* NEXT STEPS Section */
+        .steps-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 30px;
+            flex-wrap: wrap; /* responsive for small screens */
+        }
+
+        .steps-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .step-number {
+            background-color: #FFD700; /* gold */
+            color: #111;
+            font-weight: bold;
+            font-size: 24px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            margin: 0 0 5px 0;
+            color: #FFD700;
+            font-size: 36px;
+        }
+
+        .step-content p {
+            margin: 0;
+            line-height: 1.6;
+            color: white;
+            font-size: 18px;
+        }
+
+        .steps-image {
+            flex: 1;
+            min-width: 250px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .steps-image img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Responsive for smaller screens */
+        @media (max-width: 900px) {
+            .steps-container {
+                flex-direction: column-reverse;
+                gap: 20px;
+            }
+
+            .steps-image {
+                margin-bottom: 20px;
+            }
+        }
+        /* Initial state for animations */
+        .animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Active state when in viewport */
+        .animate.active {
+            opacity: 1;
+            transform: translateY(0);
+}
+
+
+
+        /* CONTACT FORM */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 20px auto 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            padding: 12px;
+            border: 1px solid #555;
+            border-radius: 6px;
+            background-color: #222;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #aaa;
+        }
+
+        .contact-form button {
+            background-color: #FFD700;
+            color: #111;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background-color 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: #e6c200;
+        }
+        .form-message {
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 16px;
+            display: none;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .form-message.success {
+            color: #155724;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+
+
+        /* Hero logo responsiveness */
+        @media (max-width: 600px) {
+            .hero-logo {
+                font-size: 32px;
+        }
+    }
+        .footer-link {
+            color: #FFD700; /* Gold accent */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        footer i {
+            margin-right: 6px;
+            color: #FFD700; /* Gold location pin */
+        }
+
+</style>
+
+    </style>
+</head>
+<body>
+
+    <!-- Hero image -->
+    <div class="hero" id="home">
+        <!-- Logo Overlay -->
+        <div class="hero-logo">
+            Small Part <span>Solutions</span>
+        </div>
+
+        <div class="nav-overlay">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="#designs">Designs</a>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+    <div class="about-container">
+        <img src="{{ url_for('static', filename='images/image3.jpg') }}" class="about-photo" alt="About Me Photo">
+        <div class="about-text">
+            <h2>About</h2>
+            <p>
+                Welcome to my web development studio! My name is Drew Smallacombe and I am eager to learn how I can better your business with top quality website designs.
+                <br> <br> With over a decade of experience working in the miliary and major corporations, I am ready to transition my skills and knowledge to assist small
+                businesses in my community.
+            </p>
+            <br>
+            <p class="location">
+                <i class="fa-solid fa-location-dot"></i> Boerne, TX
+            </p>
+        </div>
+    </div>
+    </section>
+
+
+
+    <div class="section-separator"></div>
+
+    <!-- NEXT STEPS What We Do Section -->
+    <section id="next-steps">
+        <h2>NEXT STEPS</h2>
+        <div class="steps-container">
+            <div class="steps-text">
+                <div class="step animate">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Connect</h3>
+                        <p>Enter your contact information below or contact me directly to set up an appointment over Zoom or in person to discuss your ideas.</p>
+                    </div>
+                </div>
+
+                <div class="step animate">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Develop</h3>
+                        <p>Depending on the complexity of the project, your website could be complete between 2 and 4 weeks. During this time, multiple calls will be scheduled to discuss progress and any changes you would like to see.</p>
+                    </div>
+                </div>
+
+                <div class="step animate">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Final Review / Release</h3>
+                        <p>Once the website is up to your standards, the keys are handed over to you and your website becomes active for the world to see!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="steps-image animate">
+                <img src="{{ url_for('static', filename='images/image4.jpg') }}" alt="Website Development Process">
+            </div>
+        </div>
+    </section>
+
+
+
+    <div class="section-separator"></div>
+    <!-- Designs-->
+    <section id="designs">
+        <h2>Designs</h2>
+        <div class="section-content">
+            Showcase of our web projects and designs goes here.
+        </div>
+    </section>
+
+
+    <div class="section-separator"></div>
+
+    <!-- How can I serve you Section -->
+    <section id="contact">
+        <h2>How can I help grow your business?</h2>
+        <div class="section-content">
+            <p>Have a project in mind? Let's bring it to life! Contact us and share your vision.</p>
+
+            <!-- Contact Form -->
+        <div id="form-message" class="form-message"></div>
+
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="tel" name="phone" placeholder="Phone">
+            <input type="email" name="email" placeholder="Email" required>
+            <textarea name="description" placeholder="Description" rows="5" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        </div>
+    </section>
+
+    <style>
+    html {
+        scroll-behavior: smooth;
+    }
+    .nav-overlay {
+        flex-wrap: wrap;
+    }
+    </style>
+
+</style>
+
+<script>
+const form = document.getElementById('contactForm');
+const messageDiv = document.getElementById('form-message');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    }).then(response => {
+        if (response.ok) {
+            messageDiv.textContent = "Thank you! Your message has been sent.";
+            messageDiv.className = "form-message success";
+            messageDiv.style.display = "block";
+            form.reset();
+        } else {
+            response.json().then(data => {
+                messageDiv.textContent = data.error || "Oops! There was a problem sending your message.";
+                messageDiv.className = "form-message error";
+                messageDiv.style.display = "block";
+            })
+        }
+    }).catch(error => {
+        messageDiv.textContent = "Oops! There was a problem sending your message.";
+        messageDiv.className = "form-message error";
+        messageDiv.style.display = "block";
+    });
+});
+
+function animateOnScroll() {
+    const elements = document.querySelectorAll('.animate');
+    const windowHeight = window.innerHeight;
+    elements.forEach(el => {
+        const elementTop = el.getBoundingClientRect().top;
+        if (elementTop < windowHeight - 100) { // Trigger a little before it fully enters
+            el.classList.add('active');
+        }
+    });
+}
+
+// Run on scroll and on page load
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', animateOnScroll);
+</script>
+
+
+<!-- Footer -->
+<footer style="background-color:#111; color:white; padding:30px 20px; text-align:center; font-size:14px; border-top:2px solid #333;">
+    <p>&copy; <span id="year"></span> Smallacombe Partners LLC, DBA <strong>Small Part Solutions</strong>. All rights reserved.</p>
+
+    <p>
+        <a href="/privacy-policy.html" class="footer-link">Privacy Policy</a> |
+        <a href="/terms.html" class="footer-link">Terms of Service</a>
+    </p>
+
+    <p>
+        <i class="fa-solid fa-location-dot"></i> Boerne, TX |
+        <a href="mailto:contact@smallpartsolutions.com" class="footer-link">contact@smallpartsolutions.com</a>
+    </p>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+
+</body>
+</html>
